@@ -60,7 +60,7 @@ $router->group(['namespace' => 'Admin', 'middleware' => ['auth','authAdmin','men
     Route::post('admin/user/store', ['as' => 'admin.user.store', 'uses' => 'UserController@store']); //添加
     
     //信息管理路由
-    Route::get('admin/info/index', ['as' => 'admin.info.index', 'uses' => 'InfoController@index']);  //用户管理
+    Route::get('admin/info/index', ['as' => 'admin.info.manage', 'uses' => 'InfoController@index']);  //用户管理
     Route::post('admin/info/index', ['as' => 'admin.info.index', 'uses' => 'InfoController@index']);
     Route::get('admin/info/export', ['as' => 'admin.info.export', 'uses' => 'InfoController@export']); //导出
     Route::get('admin/info/detail', ['as' => 'admin.info.detail', 'uses' => 'InfoController@detail']); //查看
@@ -72,7 +72,7 @@ $router->group(['namespace' => 'Admin', 'middleware' => ['auth','authAdmin','men
     Route::post('admin/info/store', ['as' => 'admin.info.store', 'uses' => 'InfoController@store']); //添加
 
      //院校管理路由
-    Route::get('admin/school/index', ['as' => 'admin.school.index', 'uses' => 'SchoolController@index']);  //用户管理
+    Route::get('admin/school/index', ['as' => 'admin.school.manage', 'uses' => 'SchoolController@index']);  //用户管理
     Route::post('admin/school/index', ['as' => 'admin.school.index', 'uses' => 'SchoolController@index']);
     Route::get('admin/school/export', ['as' => 'admin.school.export', 'uses' => 'SchoolController@export']); //导出
     Route::post('admin/school/import', ['as' => 'admin.school.import', 'uses' => 'SchoolController@import']); //导入
@@ -83,7 +83,7 @@ $router->group(['namespace' => 'Admin', 'middleware' => ['auth','authAdmin','men
     Route::post('admin/school/store', ['as' => 'admin.school.store', 'uses' => 'SchoolController@store']); //添加
     Route::DELETE('admin/school/delete/{id}', ['as' => 'admin.school.delete', 'uses' => 'SchoolController@delete']); //删除
     //日志管理
-    Route::get('admin/operationLog/index', ['as' => 'admin.operationLog.index', 'uses' => 'operationLogController@index']);  //日志
+    Route::get('admin/operationLog/index', ['as' => 'admin.operationLog.manage', 'uses' => 'operationLogController@index']);  //日志
     Route::post('admin/operationLog/index', ['as' => 'admin.operationLog.index', 'uses' => 'operationLogController@index']);
     Route::resource('admin/operationLog', 'operationLogController');
 
