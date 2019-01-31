@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 
-class RoleController extends Controller
-{
+class RoleController extends Controller {
+
     protected $fields = [
         'name' => '',
         'display_name' => '',
@@ -20,14 +19,12 @@ class RoleController extends Controller
         'perms' => [],
     ];
 
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {   
+    public function index(Request $request) {
 //        dd(23);
         if ($request->ajax()) {
             $data = array();
@@ -40,22 +37,22 @@ class RoleController extends Controller
             $data['recordsTotal'] = Role::count();
             if (strlen($search['value']) > 0) {
                 $data['recordsFiltered'] = Role::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
-                })->count();
+                            $query->where('name', 'LIKE', '%' . $search['value'] . '%')
+                                    ->orWhere('description', 'like', '%' . $search['value'] . '%');
+                        })->count();
                 $data['data'] = Role::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
-                })
-                    ->skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+                            $query->where('name', 'LIKE', '%' . $search['value'] . '%')
+                            ->orWhere('description', 'like', '%' . $search['value'] . '%');
+                        })
+                        ->skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get();
             } else {
                 $data['recordsFiltered'] = Role::count();
                 $data['data'] = Role::
-                skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+                        skip($start)->take($length)
+                        ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
+                        ->get();
             }
             return response()->json($data);
         }
@@ -67,10 +64,9 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $data = [];
-        $data['permissionAll']=[];
+        $data['permissionAll'] = [];
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
@@ -88,11 +84,10 @@ class RoleController extends Controller
      * @param PremissionCreateRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // dd($request->get('permission'));
         $role = new Role();
-       foreach (array_keys($this->fields) as $field) {
+        foreach (array_keys($this->fields) as $field) {
             $role->$field = $request->get($field);
         }
         unset($role->perms);
@@ -101,6 +96,7 @@ class RoleController extends Controller
         if (is_array($request->get('permissions'))) {
             $role->givePermissionsTo($request->get('permissions'));
         }
+        writeLog($request, "角色“ " . $role->name . " ”添加成功");
         return redirect('/admin/role')->withSuccess('添加成功！');
     }
 
@@ -110,8 +106,7 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -121,11 +116,11 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
 
-        $role = Role::find((int)$id);
-        if (!$role) return redirect('/admin/role')->withErrors("找不到该角色!");
+        $role = Role::find((int) $id);
+        if (!$role)
+            return redirect('/admin/role')->withErrors("找不到该角色!");
         $permissions = [];
         if ($role->perms) {
             foreach ($role->perms as $v) {
@@ -133,7 +128,7 @@ class RoleController extends Controller
             }
         }
         $role->perms = $permissions;
-        
+
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $role->$field);
         }
@@ -142,7 +137,7 @@ class RoleController extends Controller
         foreach ($arr as $v) {
             $data['permissionAll'][$v['cid']][] = $v;
         }
-        $data['id'] = (int)$id;
+        $data['id'] = (int) $id;
 //        dd($data);
         return view('admin.role.edit', $data);
     }
@@ -154,18 +149,15 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleUpdateRequest $request, $id)
-    {
-//         dd(12);
-        $role = Role::find((int)$id);
-      
+    public function update(RoleUpdateRequest $request, $id) {
+        $role = Role::find((int) $id);
         foreach (array_keys($this->fields) as $field) {
             $role->$field = $request->get($field);
         }
         unset($role->perms);
         $role->save();
-        $role->givePermissionsTo($request->get('permissions',[]));
-        
+        $role->givePermissionsTo($request->get('permissions', []));
+        writeLog($request, "角色“ " . $role->name . " ”修改成功");
         return redirect('/admin/role')->withSuccess('修改成功！');
     }
 
@@ -175,17 +167,15 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $role = Role::find((int)$id);
+    public function destroy($id) {
+        $role = Role::find((int) $id);
         if ($role) {
             $role->delete();
-        } else {
-            return redirect()->back()
-                ->withErrors("删除失败");
+            writeLog($request, "角色“ " . $role->name . " ”删除成功");
+            return redirect()->back()->withSuccess("删除成功");
         }
-
-        return redirect()->back()
-            ->withSuccess("删除成功");
+        writeLog($request, "角色“ " . $role->name . " ”删除失败");
+        return redirect()->back()->withErrors("删除失败");
     }
+
 }

@@ -39,12 +39,14 @@ $router->group(['namespace' => 'Admin', 'middleware' => ['auth','authAdmin','men
 
 
     //角色管理路由
-    Route::get('admin/role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
+    Route::get('admin/role/index', ['as' => 'admin.role.manage', 'uses' => 'RoleController@index']);
     Route::post('admin/role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
     Route::resource('admin/role', 'RoleController');
-    Route::put('admin/role/update', ['as' => 'admin.role.edit', 'uses' => 'RoleController@update']); //修改
-   
-    Route::post('admin/role/store', ['as' => 'admin.role.create', 'uses' => 'RoleController@store']); //添加
+    
+    Route::put('admin/role/update', ['as' => 'admin.role.update', 'uses' => 'RoleController@update']); //修改
+    Route::get('admin/role/edit', ['as' => 'admin.role.edit', 'uses' => 'RoleController@edit']); //修改
+    Route::get('admin/role/create', ['as' => 'admin.role.create', 'uses' => 'RoleController@create']); //添加
+    Route::post('admin/role/store', ['as' => 'admin.role.store', 'uses' => 'RoleController@store']); //添加
 
 
     //用户管理路由
@@ -55,7 +57,7 @@ $router->group(['namespace' => 'Admin', 'middleware' => ['auth','authAdmin','men
     Route::post('admin/user/import', ['as' => 'admin.user.import', 'uses' => 'UserController@import']); //导入
     Route::resource('admin/user', 'UserController');
     Route::put('admin/user/update', ['as' => 'admin.user.edit', 'uses' => 'UserController@update']); //修改
-     Route::get('admin/user/edit', ['as' => 'admin.user.edit', 'uses' => 'UserController@edit']); //修改
+    Route::get('admin/user/edit', ['as' => 'admin.user.edit', 'uses' => 'UserController@edit']); //修改
     Route::get('admin/user/create', ['as' => 'admin.user.create', 'uses' => 'UserController@create']); //添加
     Route::post('admin/user/store', ['as' => 'admin.user.store', 'uses' => 'UserController@store']); //添加
     

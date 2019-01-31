@@ -162,19 +162,19 @@
                 $("#submitSearch").click(function () {
                     $("#tags-table").dataTable().fnDraw(false);
                 });
-                table.on('preXhr.dt', function () {
-                    loadShow();
-                });
-
-                table.on('draw.dt', function () {
-                    loadFadeOut();
-                });
-
-                table.on('order.dt search.dt', function () {
-                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
-                        cell.innerHTML = i + 1;
-                    });
-                }).draw();
+//                table.on('preXhr.dt', function () {
+//                    loadShow();
+//                });
+//
+//                table.on('draw.dt', function () {
+//                    loadFadeOut();
+//                });
+//
+//                table.on('order.dt search.dt', function () {
+//                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+//                        cell.innerHTML = i + 1;
+//                    });
+//                }).draw();
 
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');

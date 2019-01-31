@@ -12,7 +12,7 @@
         <input type="file" name="file" id="file" multiple class="ph08" />
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="submit"  id="submit" value="导入"/>
-        
+
 
     </form>
 </div>  
@@ -182,23 +182,24 @@
                 $("#submitSearch").click(function () {
                     $("#tags-table").dataTable().fnDraw(false);
                 });
-//                table.fnClearTable(false);
-                table.on('preXhr.dt', function () {
-                    loadShow();
-                });
-                table.on('draw.dt', function () {
-                    loadFadeOut();
-                });
-                table.on('order.dt search.dt', function () {
-                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
-                        cell.innerHTML = i + 1;
-                    });
-                }).draw();
                 $("table").delegate('.delBtn', 'click', function () {
                     var id = $(this).attr('attr');
                     $('.deleteForm').attr('action', '/admin/info/' + id);
                     $("#modal-delete").modal();
                 });
+//                table.fnClearTable(false);
+//                table.on('preXhr.dt', function () {
+//                    loadShow();
+//                });
+//                table.on('draw.dt', function () {
+//                    loadFadeOut();
+//                });
+//                table.on('order.dt search.dt', function () {
+//                    table.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+//                        cell.innerHTML = i + 1;
+//                    });
+//                }).draw();
+
                 $("#btnImport").click(function () {
                     indexColse = layer.open({
                         type: 1,
