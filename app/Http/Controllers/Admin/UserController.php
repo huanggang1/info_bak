@@ -159,7 +159,7 @@ class UserController extends Controller {
         }
         $data['rolesAll'] = Role::all()->toArray();
         $data['id'] = (int) $id;
-        return view('admin.user.edit', $data)->with("readonly", "disabled");
+        return view('admin.user.detail', $data)->with("readonly", "disabled");
     }
 
     /**
