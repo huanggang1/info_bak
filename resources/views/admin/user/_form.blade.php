@@ -41,7 +41,7 @@
         <div class="col-md-4" style="float:left;padding-left:20px;margin-top:8px;">
             <span class="checkbox-custom checkbox-default">
                 <i class="fa"></i>
-                <input class="form-actions"
+                <input {{$readonly}} class="form-actions"
                        @if(in_array($v['id'],$roles))
                        checked
                        @endif
