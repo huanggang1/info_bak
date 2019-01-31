@@ -70,11 +70,11 @@ class RoleController extends Controller {
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
-        $arr = Permission::all()->toArray();
-
+        $arr = Permission::where(['status'=>1])->get()->toArray();
         foreach ($arr as $v) {
             $data['permissionAll'][$v['cid']][] = $v;
         }
+//        dd($data);
         return view('admin.role.create', $data);
     }
 
@@ -132,7 +132,7 @@ class RoleController extends Controller {
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $role->$field);
         }
-        $arr = Permission::all()->toArray();
+        $arr = Permission::where(['status'=>1])->get()->toArray();
 //        dd($arr);
         foreach ($arr as $v) {
             $data['permissionAll'][$v['cid']][] = $v;
