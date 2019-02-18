@@ -26,9 +26,9 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <div class="login-logo">
+<!--  <div class="login-logo">
     <a><b>Neo</b>CMS</a>
-  </div>
+  </div>-->
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">万事登录难</p>
@@ -45,11 +45,11 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <div class="checkbox icheck">
+<!--          <div class="checkbox icheck">
             <label>
               <input type="checkbox"> 记住登录
             </label>
-          </div>
+          </div>-->
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
@@ -61,8 +61,8 @@
 
     <!-- /.social-auth-links -->
 
-    <a href="#">我忘了密码</a><br>
-    <a href="#" class="text-center">新注册用户</a>
+<!--    <a href="#">我忘了密码</a><br>
+    <a href="#" class="text-center">新注册用户</a>-->
 
   </div>
   <!-- /.login-box-body -->
