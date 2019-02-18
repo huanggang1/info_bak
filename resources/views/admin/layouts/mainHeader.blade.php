@@ -1,12 +1,12 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
+<!--    <a href="/" class="logo">
+       mini logo for sidebar mini 50x50 pixels 
       <span class="logo-mini"><b>N</b>cms</span>
-      <!-- logo for regular state and mobile devices -->
+       logo for regular state and mobile devices 
       <span class="logo-lg"><b>Neo</b>CMS</span>
-    </a>
+    </a>-->
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
