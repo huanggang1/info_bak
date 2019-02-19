@@ -149,7 +149,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">编辑详情</a>
+                  <!--<a href="#" class="btn btn-default btn-flat">编辑详情</a>-->
                 </div>
                 <div class="pull-right">
                   <a href="/admin/logout" class="btn btn-default btn-flat">登出</a>
