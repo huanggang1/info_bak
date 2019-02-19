@@ -33,7 +33,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">万事登录难</p>
 
-    <form action="{{ url('/admin/login') }}" method="post">
+    <form action="/admin/login" method="post">
 		{!! csrf_field() !!}
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="登录邮箱名"  name="email" value="{{ old('email') }}">
