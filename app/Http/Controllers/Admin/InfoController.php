@@ -168,7 +168,7 @@ class InfoController extends Controller {
             $dataArr[$i] = array_values($v);
         }
         writeLog($request, "导出信息管理操作");
-        Excel::create(iconv('UTF-8', 'GBK', '信息管理'), function($excel) use ($dataArr) {
+        Excel::create('信息管理', function($excel) use ($dataArr) {
             $excel->sheet('score', function($sheet) use ($dataArr) {
                 $sheet->rows($dataArr);
             });
