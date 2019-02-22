@@ -18,4 +18,11 @@
     
     <label class="lable" for="tag" >备用电话：</label><input type="text"  name="remarksPhone"  value="{{$infoData['remarksPhone']}}" {{$readonly}} autofocus>
     <label class="lable" for="tag" >预留字段：</label><input type="text"  name="reservedFields"  value="{{$infoData['reservedFields']}}" {{$readonly}} autofocus>
+    <label class="lable" for="tag" >籍贯：</label><input type="text"  name="nativePlace"  value="{{$infoData['nativePlace']}}" {{$readonly}} autofocus>
+    <label class="lable" for="tag" >婚否：</label>
+    <input type="radio"  name="marriage"  value="0" @if ($infoData['marriage']== 0) checked @endif  {{$readonly}} autofocus>否
+    <input type="radio"  name="marriage"  value="1" @if ($infoData['marriage']== 1) checked @endif {{$readonly}} autofocus>是
+</div>
+<div class="item">
+    <label class="lable" for="tag" >家庭住址：</label><input type="text"  name="homeAddress"  value="{{$infoData['homeAddress']}}" {{$readonly}} autofocus>
 </div>
