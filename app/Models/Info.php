@@ -18,7 +18,7 @@ class Info extends Model {
         'achievement', 'studentNum', 'applyTime', 'initialSchool', 'level', 'studyForm',
         'applySchool', 'applyProfession', 'checkAddress', 'addPoints', 'enterFIeld',
         'personalResume', 'enrollFee', 'payee', 'totalCost', 'fullCost', 'costFieldsOne',
-        'yearOne', 'yearTwo', 'yearTree', 'costFieldsTwo', 'person', 'introducer', 'remarks'
+        'yearOne', 'yearTwo', 'yearTree', 'costFieldsTwo', 'person', 'introducer', 'remarks','examinationArea'
     ];
     protected $rules = [
         'identityNum' => "required|unique:info_users,identityNum,2,status",
@@ -68,8 +68,11 @@ class Info extends Model {
         if (isset($param['btSchool']) && !empty($param['btSchool'])) {
             $query->where('applySchool', 'like', '%' . $param['btSchool'] . '%');
         }
-        if (isset($param['checkAddress']) && !empty($param['checkAddress'])) {
-            $query->where('checkAddress', 'like', '%' . $param['checkAddress'] . '%');
+        if (isset($param['btnPerson']) && !empty($param['btnPerson'])) {
+            $query->where('person', 'like', '%' . $param['btnPerson'] . '%');
+        }
+        if (isset($param['examinationArea']) && !empty($param['examinationArea'])) {
+            $query->where('examinationArea', 'like', '%' . $param['examinationArea'] . '%');
         }
         if (isset($param['btGrade']) && !empty($param['btGrade'])) {
             $query->where('grade', 'like', '%' . $param['btGrade'] . '%');
@@ -77,6 +80,7 @@ class Info extends Model {
         if (isset($param['btGrade']) && $param['btnFullCost'] != "-1") {
             $query->where(['fullCost' => $param['btnFullCost']]);
         }
+        
         $query->where(['status' => 1]);
         if (Auth::guard('admin')->user()->id != 1) {
             $query->where(['uid' => Auth::guard('admin')->user()->id]);
