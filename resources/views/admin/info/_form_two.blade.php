@@ -25,6 +25,9 @@
     <label class="lable"  for="tag" >预留字段：</label><input style="width:160px"type="text"  name="enterFIeld" value="{{$infoData['enterFIeld']}}" {{$readonly}} autofocus>
 </div>
 <div class="item">
+    <label class="lable"  for="tag" >考区：</label><input style="width:160px"type="text"  name="examinationArea" value="{{$infoData['examinationArea']}}" {{$readonly}} autofocus>
+</div><br/>
+<div class="item">
     <label class="lable"  for="tag" >个人履历：</label>
-    <textarea name="personalResume" {{$readonly}}>{{$infoData['personalResume']}}</textarea>
+    <textarea cols="80"  rows="5" name="personalResume" {{$readonly}}>{{$infoData['personalResume']}}</textarea>
 </div>

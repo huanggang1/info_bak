@@ -12,6 +12,6 @@
     <label class="lable"  for="tag" >第二 年：</label><input style="width:160px"type="text"  name="yearTwo" value="{{$infoData['yearTwo']}}" {{$readonly}} autofocus>
     <label class="lable"  for="tag" >第三 年：</label><input style="width:160px"type="text" name="yearTree" value="{{$infoData['yearTree']}}" {{$readonly}} autofocus>
 </div>
-<div>
+<div class="item">
     <label class="lable"  for="tag" >预留字段：</label><input style="width:160px"type="text"  name="costFieldsTwo" value="{{$infoData['costFieldsTwo']}}" {{$readonly}} autofocus>
 </div>

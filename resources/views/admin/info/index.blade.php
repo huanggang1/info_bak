@@ -45,12 +45,8 @@
                     <label class="lable"  for="tag" >姓名：</label><input type="text"   id="btName" value="" autofocus>
                     <label class="lable"  for="tag" >手机号：</label> <input type="text"   id="btPhone" value="" autofocus><br/>
                     <label class="lable"  for="tag" >学校：</label><input type="text"   id="btSchool" value="" autofocus>
-                    <label class="lable"  for="tag" >核对地址：</label><input type="text"    id="checkAddress" value="" autofocus>
-                    <!--<label class="lable"  for="tag" >年级：</label><input type="text"    id="btSchool" value="" autofocus>-->
-<!--                    是否录取 :<select id="btnFullCost">
-                        <option value="-1">--请选择--</option>
-                        <option value="1">已录取</option>
-                        <option value="0">未录取</option> </select>-->
+                    <label class="lable"  for="tag" >考区：</label><input type="text"    id="examinationArea" value="" autofocus>
+                    <label class="lable"  for="tag" >负责人：</label></label><input type="text"    id="btnPerson" value="" autofocus>
                     <label class="lable"  for="tag" >是否全费：</label> :<select id="btnFullCost">
                         <option value="-1">--请选择--</option>
                         <option value="1">是</option>
@@ -71,7 +67,7 @@
                             <th class="hidden-md">身份证号</th>
                             <th class="hidden-md">报考专业</th>
                             <th class="hidden-md">报考院校</th>
-                            <th class="hidden-md">手机号</th>
+                            <th class="hidden-md">考区</th>
                             <th data-sortable="false">操作</th>
                         </tr>
                     </thead>
@@ -152,10 +148,12 @@
                          data: function (d) {
                                                      d.btName = $("#btName").val();
                                                      d.btGrade = $("#btGrade").val();
-                                                     d.checkAddress = $("#checkAddress").val();
+//                                                     d.checkAddress = $("#checkAddress").val();
                                                      d.btnFullCost = $("#btnFullCost").val();
+                                                     d.btnPerson = $("#btnPerson").val();
                                                      d.btPhone = $("#btPhone").val();
                                                      d.btSchool = $("#btSchool").val();
+                                                     d.examinationArea = $("#examinationArea").val();
                         },
                     },
                     "columns": [
@@ -165,7 +163,7 @@
                         {"data": "identityNum"},
                         {"data": "applyProfession"},
                         {"data": "applySchool"},
-                        {"data": "phone"},
+                        {"data": "examinationArea"},
                         {"data": "action"}
                     ],
                     columnDefs: [
@@ -213,11 +211,12 @@
                 $("#btnExport").click(function () {
                     var btName = $("#btName").val();
                     var btGrade = $("#btGrade").val();
-                    var checkAddress = $("#checkAddress").val();
+                    var examinationArea = $("#examinationArea").val();
                     var btnFullCost = $("#btnFullCost").val();
                     var btPhone = $("#btPhone").val();
                     var btSchool = $("#btSchool").val();
-                    location.href = "/admin/info/export?btName=" + btName + "&btGrade=" + btGrade + "&checkAddress=" + checkAddress + "&btnFullCost=" + btnFullCost + "&btPhone=" + btPhone + "&btSchool=" + btSchool;
+                    var btnPerson = $("#btnPerson").val();
+                    location.href = "/admin/info/export?btName=" + btName + "&btGrade=" + btGrade + "&examinationArea=" + examinationArea + "&btnFullCost=" + btnFullCost + "&btPhone=" + btPhone + "&btSchool=" + btSchool+ "&btnPerson=" + btnPerson;
                 });
             });
         </script>

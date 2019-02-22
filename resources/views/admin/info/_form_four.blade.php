@@ -4,5 +4,5 @@
 </div><br/>
 <div class="item">
   <label class="lable"  for="tag" >备注：</label>
-  <textarea name="remarks"  {{$readonly}} >{{$infoData['remarks']}}</textarea>
+  <textarea name="remarks" cols="80"  rows="5"  {{$readonly}} >{{$infoData['remarks']}}</textarea>
 </div>
