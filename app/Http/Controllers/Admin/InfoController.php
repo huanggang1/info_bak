@@ -154,13 +154,14 @@ class InfoController extends Controller {
             $data[$k]['addPoints'] = $v['addPoints'] == 0 ? "不加分" : "加分";
             $data[$k]['fullCost'] = $v['fullCost'] == 0 ? "不是" : "是";
             $data[$k]['applySchool'] = $this->school->getSchool($v['applySchool'])['name'];
+            $data[$k]['marriage'] = $v['addPoints'] == 0 ? "否" : "是";
         }
         $i = 0;
         $headerArr = [
             '姓名', '性别', '民族', '政治面貌', '身份证号', '工作单位', '手机号', '备用电话',
             '预留字段', '年级', '考生号', '成绩', '学号', '报名日期', '初始学校', '层次', '学习形式', '报考学校', '报考专业',
             '核对地址', '是否加分', '预留字段', '个人履历', '报名费', '收款人', '总费用', '是否全费', '预留字段',
-            '第一年', '第二年', '第三年', '预留字段', '负责人', '介绍人', '备注','考区',
+            '第一年', '第二年', '第三年', '预留字段', '负责人', '介绍人', '备注', '考区', '籍贯', '婚否', '家庭住址'
         ];
         $dataArr[$i] = $headerArr;
         foreach ($data as $k => $v) {
@@ -189,12 +190,20 @@ class InfoController extends Controller {
             // 上传文件操作
             $request->file('file')->move('Uploads/', $newFile);
         }
-
+//        dd($newFile);
         Excel::load("Uploads/" . $newFile, function($reader) use ($newFile, &$return) {
             $data = $reader->get()->toArray();
-            unset($data[0]);
-            unlink("Uploads/" . $newFile);
+                        unlink("Uploads/" . $newFile);
+            if (count($data) <= 0) {
+                $return = [
+                    'code' => 0,
+                    'msg' => '数据为空',
+                ];
+            }else{
+                unset($data[0]);
             $return = $this->info->addAll($data);
+            }
+            
 //            echo json_encode($return);
         });
         if ($return['code'] == 1) {
