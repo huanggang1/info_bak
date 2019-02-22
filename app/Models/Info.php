@@ -18,7 +18,8 @@ class Info extends Model {
         'achievement', 'studentNum', 'applyTime', 'initialSchool', 'level', 'studyForm',
         'applySchool', 'applyProfession', 'checkAddress', 'addPoints', 'enterFIeld',
         'personalResume', 'enrollFee', 'payee', 'totalCost', 'fullCost', 'costFieldsOne',
-        'yearOne', 'yearTwo', 'yearTree', 'costFieldsTwo', 'person', 'introducer', 'remarks','examinationArea'
+        'yearOne', 'yearTwo', 'yearTree', 'costFieldsTwo', 'person', 'introducer', 'remarks',
+        'examinationArea','nativePlace','marriage','homeAddress',
     ];
     protected $rules = [
         'identityNum' => "required|unique:info_users,identityNum,2,status",
@@ -118,6 +119,10 @@ class Info extends Model {
                 continue;
             }
             $arr['applySchool'] = $schoolId;
+            $arr['sex'] = $arr['sex'] == '男' ? "0" : "1";
+            $arr['addPoints'] = $arr['addPoints'] == "不加分" ? "0" : "1";
+            $arr['fullCost'] = $arr['fullCost'] == '不是' ? "0" : "1";
+            $arr['marriage'] = $arr['marriage'] == '否'? "0" : "1";
             $arr['uid'] = Auth::guard('admin')->user()->id;
             $dataError[$k] = $this->getAdd($arr);
         }
