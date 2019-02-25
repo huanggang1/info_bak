@@ -185,7 +185,7 @@ class InfoController extends Controller {
         if ($request->hasFile('file')) {
             // 获取后缀名
             $ext = $request->file('file')->getClientOriginalExtension();
-            if (!in_array($ext, ['xls', 'xlsx'], $ext)) {
+            if (!in_array($ext, ['xls', 'xlsx'])) {
                 return redirect()->back()->withErrors("模板不正确");
             }
             // 新的文件名
