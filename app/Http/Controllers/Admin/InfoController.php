@@ -173,7 +173,7 @@ class InfoController extends Controller {
             $excel->sheet('score', function($sheet) use ($dataArr) {
                 $sheet->rows($dataArr);
             });
-        })->export('xls');
+        })->export('xlsx');
     }
 
     /**
@@ -185,26 +185,20 @@ class InfoController extends Controller {
         if ($request->hasFile('file')) {
             // 获取后缀名
             $ext = $request->file('file')->getClientOriginalExtension();
+            if (!in_array($ext, ['xls', 'xlsx'], $ext)) {
+                return redirect()->back()->withErrors("模板不正确");
+            }
             // 新的文件名
-            $newFile = time() . mt_rand(0, 9999) . "." . $ext;
+            $newFile = mt_rand(0, 9999) . "." . $ext;
             // 上传文件操作
             $request->file('file')->move('Uploads/', $newFile);
         }
 //        dd($newFile);
         Excel::load("Uploads/" . $newFile, function($reader) use ($newFile, &$return) {
             $data = $reader->get()->toArray();
-                        unlink("Uploads/" . $newFile);
-            if (count($data) <= 0) {
-                $return = [
-                    'code' => 0,
-                    'msg' => '数据为空',
-                ];
-            }else{
-                unset($data[0]);
+            unlink("Uploads/" . $newFile);
+            unset($data[0]);
             $return = $this->info->addAll($data);
-            }
-            
-//            echo json_encode($return);
         });
         if ($return['code'] == 1) {
             writeLog($request, $return['msg']);
