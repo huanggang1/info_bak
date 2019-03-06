@@ -13,3 +13,51 @@
 .input-text{
     width: 50px;
 }
+.fileBox{
+    //width:256px;
+    height:34px;
+    margin-top: 10px;
+    margin-left: 10px;
+    display:inline-block
+}
+
+.file{
+    height: 34px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    opacity: 0;
+    width: 82px;
+}
+
+.hideInput{
+    border:1px solid #ccc;
+}
+
+.down{
+    width: 69px;
+    height: 34px;
+    background: #e01245c4;
+    display: inline-block;
+    vertical-align: bottom;
+    color:#fff;
+    text-align: center;
+    line-height:34px;
+    border-radius:3px;
+}
+
+.down:hover{
+    color:#fff;
+}
+#warn{
+    position:  absolute;
+    left: 50%;
+    width: 380px;
+    background: #c13d3d;
+    height: 26px;
+    line-height: 26px;
+    color: #fff;
+    text-align: center;
+    margin-left: -190px;
+    top: 18%;
+}
