@@ -24,15 +24,14 @@ class AuthenticateAdmin {
         }
         $previousUrl = URL::previous();
         if (!Auth::guard('admin')->user()->can(Route::currentRouteName())) {
+           
             if ($request->ajax() && ($request->getMethod() != 'GET')) {
                 return response()->json([
                             'status' => -1,
                             'code' => 403,
                             'msg' => '您没有权限执行此操作'
                 ]);
-            } else {
-                return response()->view('admin.errors.403', compact('previousUrl'));
-            }
+            } 
         }
 
         return $next($request);

@@ -202,7 +202,7 @@ class UserController extends Controller {
             $excel->sheet('score', function($sheet) use ($dataArr) {
                 $sheet->rows($dataArr);
             });
-        })->export('xls');
+        })->export('xlsx');
     }
 
     /**
@@ -233,6 +233,14 @@ class UserController extends Controller {
             writeLog($request, $return['msg']);
             return redirect()->back()->withErrors($return['msg']);
         }
+    }
+
+    /**
+     * 下载模板
+     * @return type
+     */
+    public function down() {
+        return response()->download(realpath(base_path('public/download')) . '/user.xlsx', '用户管理.xlsx');
     }
 
 }

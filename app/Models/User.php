@@ -61,7 +61,7 @@ class User extends Model {
         if (isset($param['btEmail']) && !empty($param['btEmail'])) {
             $query->where('email', 'like', '%' . $param['btEmail'] . '%');
         }
-//        $query->where(['status' => 1]);
+        $query->whereNotIn('id', [1]);
     }
 
     /**

@@ -19,7 +19,7 @@ class Info extends Model {
         'applySchool', 'applyProfession', 'checkAddress', 'addPoints', 'enterFIeld',
         'personalResume', 'enrollFee', 'payee', 'totalCost', 'fullCost', 'costFieldsOne',
         'yearOne', 'yearTwo', 'yearTree', 'costFieldsTwo', 'person', 'introducer', 'remarks',
-        'examinationArea','nativePlace','marriage','homeAddress',
+        'examinationArea', 'nativePlace', 'marriage', 'homeAddress',
     ];
     protected $rules = [
         'identityNum' => "required|unique:info_users,identityNum,2,status",
@@ -30,6 +30,9 @@ class Info extends Model {
         'identityNum.unique' => '身份证号已存在',
         'examineeNum.unique' => '考生号已经存在',
         'studentNum.unique' => '学号已经存在',
+        'identityNum.required' => '身份证号不能为空',
+        'examineeNum.required' => '考生号不能为空',
+        'studentNum.required' => '学号不能为空',
     ];
 
     /**
@@ -81,9 +84,9 @@ class Info extends Model {
         if (isset($param['btGrade']) && $param['btnFullCost'] != "-1") {
             $query->where(['fullCost' => $param['btnFullCost']]);
         }
-        
+
         $query->where(['status' => 1]);
-        if (Auth::guard('admin')->user()->id != 1) {
+        if (DB::table('role_user')->where(['user_id' => Auth::guard('admin')->user()->id, 'role_id' => 1])->count() == 0 && Auth::guard('admin')->user()->id != 1) {
             $query->where(['uid' => Auth::guard('admin')->user()->id]);
         }
     }
@@ -115,6 +118,7 @@ class Info extends Model {
             $arr = array_combine($this->fields, $v);
             $schoolId = $this->schoolSelect($arr['applySchool']);
             if (!$schoolId) {
+
                 $dataError[$k] = $arr['examineeNum'];
                 continue;
             }
@@ -122,9 +126,12 @@ class Info extends Model {
             $arr['sex'] = $arr['sex'] == '男' ? "0" : "1";
             $arr['addPoints'] = $arr['addPoints'] == "不加分" ? "0" : "1";
             $arr['fullCost'] = $arr['fullCost'] == '不是' ? "0" : "1";
-            $arr['marriage'] = $arr['marriage'] == '否'? "0" : "1";
+            $arr['marriage'] = $arr['marriage'] == '否' ? "0" : "1";
             $arr['uid'] = Auth::guard('admin')->user()->id;
-            $dataError[$k] = $this->getAdd($arr);
+            $flag = $this->getAdd($arr, true);
+            if (!empty($flag)) {
+                $dataError[$k] = $flag;
+            }
         }
         if (count($dataError) > 0) {
             return ['code' => 0, 'msg' => "导入信息考生号“ " . implode(',', $dataError) . " ”失败"];
@@ -134,7 +141,7 @@ class Info extends Model {
 
     public function schoolSelect($applySchool) {
         DB::setFetchMode(PDO::FETCH_ASSOC);
-        $data = DB::table('school')->where(['name' => $applySchool])->first();
+        $data = DB::table('school')->where(['name' => $applySchool, 'status' => 1])->first();
         if ($data['id']) {
             return $data['id'];
         }
@@ -146,11 +153,15 @@ class Info extends Model {
      * @param type $data
      * @return type
      */
-    public function getAdd($data) {
+    public function getAdd($data, $mark = false) {
         //验证唯一性
         $validator = Validator::make($data, $this->rules, $this->messages);
         if ($validator->fails()) {
-            return $data['examineeNum'];
+            if ($mark == true) {
+                return $data['examineeNum'];
+            } else {
+                return $validator;
+            }
         } else {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['uid'] = Auth::guard('admin')->user()->id;

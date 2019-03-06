@@ -42,7 +42,7 @@ class School extends Model {
                 })
                 ->skip($start)->take($length)
                 ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                ->get(array('id', 'name'));
+                ->get(array('id', 'name','created_at'));
         foreach ($data['data'] as $key => $val) {
             $data['data'][$key]['key'] = $key + 1;
         }

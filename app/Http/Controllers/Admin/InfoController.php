@@ -72,8 +72,17 @@ class InfoController extends Controller {
         }
         $return = $this->info->getAdd($data);
         if (isset($return)) {
+            $messages = $return->errors()->toArray();
+            $result = [];
+            foreach ($messages as $field => $errors) {
+                foreach ($errors as $error) {
+                    $result[] = [
+                        'errmsg' => $error,
+                    ];
+                }
+            }
             writeLog($request, "考生号“ " . $data['examineeNum'] . " ”添加失败");
-            return redirect()->back()->withErrors('身份证或考生号或学号已存在');
+            return redirect()->back()->withErrors($result[0]['errmsg']);
         }
         writeLog($request, "考生号“ " . $data['examineeNum'] . " ”添加成功");
         return redirect('/admin/info/index')->withSuccess('添加成功！');
@@ -192,6 +201,8 @@ class InfoController extends Controller {
             $newFile = mt_rand(0, 9999) . "." . $ext;
             // 上传文件操作
             $request->file('file')->move('Uploads/', $newFile);
+        } else {
+            return redirect()->back()->withErrors("请选择文件");
         }
 //        dd($newFile);
         Excel::load("Uploads/" . $newFile, function($reader) use ($newFile, &$return) {
@@ -207,6 +218,13 @@ class InfoController extends Controller {
             writeLog($request, $return['msg']);
             return redirect()->back()->withErrors($return['msg']);
         }
+    }
+    /**
+     * 下载模板
+     * @return type
+     */
+    public function down() {
+        return response()->download(realpath(base_path('public/download')) . '/info.xlsx', '信息管理.xlsx');
     }
 
 }
