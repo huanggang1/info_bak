@@ -9,10 +9,15 @@
 @section('content')
 <div id="acc_sc" style="display: none">
     <form  id="formSubmit" class="reasonContent2"  action="/admin/user/import" method="post" enctype="multipart/form-data"> 
-        <input type="file" name="file" id="file" multiple class="ph08" />
-         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="submit"  id="submit" value="导入"/>
+        <div class="fileBox">
+            <input type="file" name="file" id="file" multiple class="ph08 file" />
+            <button type="button" class="hideInput btn btn-success">选择文件</button>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        </div>
+        <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
+        <a class="down" href="/admin/user/down">下载模板</a>
     </form>
+    
 </div>  
 <div class="row page-title-row" style="margin:5px;">
     <div class="col-md-6">
@@ -37,9 +42,9 @@
             @include('admin.partials.errors')
             @include('admin.partials.success')
             <div class="box-body">
-                <label class="lable"  for="tag" style="margin-bottom: 20px">姓名：</label><input type="text"  name="name" id="btName" value="" autofocus>
-                <label class="lable"  for="tag" style="margin-bottom: 20px">邮箱：</label><input type="text"  name="email" id="btEmail" value="" autofocus>
-                <label class="lable"  for="tag" style="margin-bottom: 20px">手机号：</label><input type="text"  name="phone"  id="btPhone" value="" autofocus>
+                <label class="lable"  for="tag" style="margin-bottom: 20px">姓名：</label><input type="text" autocomplete="off"  name="name" id="btName" value="" autofocus>
+                <label class="lable"  for="tag" style="margin-bottom: 20px">邮箱：</label><input type="text" autocomplete="off"  name="email" id="btEmail" value="" autofocus>
+                <label class="lable"  for="tag" style="margin-bottom: 20px">手机号：</label><input type="text" autocomplete="off"  name="phone"  id="btPhone" value="" autofocus>
                 <button  class="btn btn-success" id="submitSearch" style="float: right;margin-right: 30px">搜索</button>
                 <div class="box-header">
                     <a class="btn btn-success"  id="btnExport">导出</a>
@@ -52,6 +57,7 @@
                             <th class="hidden-sm">用户名</th>
                             <th class="hidden-sm">邮箱</th>
                             <th class="hidden-md">手机号</th>
+                            <th class="hidden-md">创建时间</th>
                             <th data-sortable="false">操作</th>
                         </tr>
                     </thead>
@@ -125,7 +131,7 @@
                             "sSortDescending": ": 以降序排列此列"
                         }
                     },
-                    order: [[1, "desc"]],
+                    order: [[4, "desc"]],
                     serverSide: true,
                     ajax: {
                         url: '/admin/user/index',
@@ -140,21 +146,26 @@
                         },
                     },
                     "columns": [
+
                         {"data": "key"},
                         {"data": "name"},
                         {"data": "email"},
                         {"data": "phone"},
-                        {"data": "action"}
+                        {"data": "created_at", "visible": false},
+                        {"data": "action"},
                     ],
                     columnDefs: [
                         {
                             'targets': -1, "render": function (data, type, row) {
-                                 var caozuo = '<a style="margin:3px;" href="/admin/user/detail?id=' + row['id'] + '" class="X-Small btn-xs text-success "><i class="fa fa-street-view"></i> 查看</a>';
-                                caozuo += '<a style="margin:3px;" href="/admin/user/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
-                                if (row['id'] != 1) {
+                                if (row['id'] == 1) {
+                                    return "";
+                                } else {
+                                    var caozuo = '<a style="margin:3px;" href="/admin/user/detail?id=' + row['id'] + '" class="X-Small btn-xs text-success "><i class="fa fa-street-view"></i> 查看</a>';
+                                    caozuo += '<a style="margin:3px;" href="/admin/user/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
                                     caozuo += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger "><i class="fa fa-times-circle-o"></i> 删除</a>';
+                                    return caozuo;
                                 }
-                                return caozuo;
+
                             }
                         }
                     ]
@@ -187,7 +198,7 @@
                         title: '导入',
                         shadeClose: true,
                         shade: 0.6,
-                        area: ['500px', '90%'],
+                        area: ['500px', '200px'],
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
                 })

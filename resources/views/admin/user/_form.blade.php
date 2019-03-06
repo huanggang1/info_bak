@@ -1,19 +1,19 @@
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">用户名</label>
     <div class="col-md-5">
-        <input type="text" class="form-control" name="name" id="tag" value="{{ $name }}"  {{$readonly}} autofocus>
+        <input type="text" autocomplete="off" class="form-control" name="name" id="tag" value="{{ $name }}"  {{$readonly}} autofocus>
     </div>
 </div>
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">邮箱</label>
     <div class="col-md-5">
-        <input type="text" class="form-control" name="email" id="tag" value="{{ $email }}"  {{$readonly}} autofocus>
+        <input type="text" autocomplete="off" class="form-control" name="email" id="tag" value="{{ $email }}"  {{$readonly}} autofocus>
     </div>
 </div>
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">手机号</label>
     <div class="col-md-5">
-        <input type="text" class="form-control" name="phone" id="tag" value="{{ $phone }}"  {{$readonly}} autofocus>
+        <input type="text" autocomplete="off" class="form-control" name="phone" id="tag" value="{{ $phone }}"  {{$readonly}} autofocus>
     </div>
 </div>
 <div class="form-group">

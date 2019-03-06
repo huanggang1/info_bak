@@ -1,13 +1,13 @@
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">角色名称</label>
     <div class="col-md-5">
-        <input type="text" class="form-control" name="name" id="tag" value="{{ $name }}" autofocus>
+        <input type="text" autocomplete="off" class="form-control" name="name" id="tag" value="{{ $name }}" autofocus>
     </div>
 </div>
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">角色标签</label>
     <div class="col-md-5">
-        <input type="text" class="form-control" name="display_name" id="tag" value="{{ $display_name }}" autofocus>
+        <input type="text" autocomplete="off" class="form-control" name="display_name" id="tag" value="{{ $display_name }}" autofocus>
     </div>
 </div>
 

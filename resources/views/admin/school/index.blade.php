@@ -9,9 +9,13 @@
 @section('content')
 <div id="acc_sc" style="display: none">
     <form  id="formSubmit" class="reasonContent2" action="/admin/school/import" method="post" enctype="multipart/form-data"> 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="file" name="file" id="file" multiple class="ph08" />
-        <input type="submit"  id="submit" value="导入"/>
+        <div class="fileBox">
+            <input type="file" name="file" id="file" multiple class="ph08 file" />
+            <button type="button" class="hideInput btn btn-success">选择文件</button>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        </div>
+        <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
+        <a class="down" href="/admin/school/down">下载模板</a>
     </form>
 </div>
 <div class="row page-title-row" style="margin:5px;">
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div class="box-body">
-                学校名称: <input type="text"  name="schoolName" id="btName" value="" autofocus onkeyup="this.value=this.value.replace(/\s+/g,'')">
+                学校名称: <input type="text" autocomplete="off"  name="schoolName" id="btName" value="" autofocus onkeyup="this.value = this.value.replace(/\s+/g, '')">
 
                 <button id="submitSearch">搜索</button>
                 <div class="box-header">
@@ -54,6 +58,7 @@
                             <th data-sortable="false" class="hidden-sm">序号</th>
                             <!--<th class="hidden-sm">序号</th>-->
                             <th class="hidden-sm">学校名称</th>
+                            <th class="hidden-sm">创建时间</th>
                             <th data-sortable="false">操作</th>
                         </tr>
                     </thead>
@@ -136,21 +141,20 @@
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                         },
                         data: function (d) {
-                          d.schoolName = $("#btName").val();
+                             d.schoolName = $("#btName").val();
                         },
                     },
                     "columns": [
                         {"data": "key"},
                         {"data": "name"},
+                        {"data": "created_at", "visible": false},
                         {"data": "action"}
                     ],
                     columnDefs: [
                         {
                             'targets': -1, "render": function (data, type, row) {
                                 var caozuo = '<a style="margin:3px;" href="/admin/school/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
-                                if (row['id'] != 1) {
                                     caozuo += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger "><i class="fa fa-times-circle-o"></i> 删除</a>';
-                                }
                                 return caozuo;
                             }
                         }
@@ -179,21 +183,21 @@
                     $('.deleteForm').attr('action', '/admin/school/delete/' + id);
                     $("#modal-delete").modal();
                 });
-                
+
                 //导入
-                $("#btnImport").bind("click",function(){
+                $("#btnImport").bind("click", function () {
                     indexColse = layer.open({
                         type: 1,
                         title: '导入',
                         shadeClose: true,
                         shade: 0.6,
-                        area: ['500px', '50%'],
+                        area: ['500px', '200px'],
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
                 });
                 //导出
-                $('#btnExport').bind("click",function(){
-                    location.href='/admin/school/export?name='+$('input[name=schoolName]').val();
+                $('#btnExport').bind("click", function () {
+                    location.href = '/admin/school/export?name=' + $('input[name=schoolName]').val();
                 });
             });
         </script>

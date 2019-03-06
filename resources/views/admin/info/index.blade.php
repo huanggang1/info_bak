@@ -9,11 +9,14 @@
 @section('content')
 <div id="acc_sc" style="display: none">
     <form  id="formSubmit" class="reasonContent2" action="/admin/info/import" method="post" enctype="multipart/form-data"> 
-        <input type="file" name="file" id="file" multiple class="ph08" />
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="submit"  id="submit" value="导入"/>
+        <div class="fileBox">
+            <input type="file" name="file" id="file" multiple class="ph08 file" />
+            <button type="button" class="hideInput btn btn-success">选择文件</button>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        </div>
 
-
+        <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
+        <a class="down" href="/admin/info/down">下载模板</a>
     </form>
 </div>  
 <div class="row page-title-row" style="margin:5px;">
@@ -41,12 +44,12 @@
 
             <div class="box-body">
                 <div style="margin-bottom:10px">
-                    <label class="lable"  for="tag" style="margin-bottom: 20px">年级：</label><input type="text"   id="btGrade" value="" autofocus>
-                    <label class="lable"  for="tag" >姓名：</label><input type="text"   id="btName" value="" autofocus>
-                    <label class="lable"  for="tag" >手机号：</label> <input type="text"   id="btPhone" value="" autofocus><br/>
-                    <label class="lable"  for="tag" >学校：</label><input type="text"   id="btSchool" value="" autofocus>
-                    <label class="lable"  for="tag" >考区：</label><input type="text"    id="examinationArea" value="" autofocus>
-                    <label class="lable"  for="tag" >负责人：</label></label><input type="text"    id="btnPerson" value="" autofocus>
+                    <label class="lable"  for="tag" style="margin-bottom: 20px">年级：</label><input type="text" autocomplete="off"  id="btGrade" value="" autofocus>
+                    <label class="lable"  for="tag" >姓名：</label><input type="text" autocomplete="off"  id="btName" value="" autofocus>
+                    <label class="lable"  for="tag" >手机号：</label> <input type="text" autocomplete="off"  id="btPhone" value="" autofocus><br/>
+                    <label class="lable"  for="tag" >学校：</label><input type="text" autocomplete="off"  id="btSchool" value="" autofocus>
+                    <label class="lable"  for="tag" >考区：</label><input type="text"  autocomplete="off"  id="examinationArea" value="" autofocus>
+                    <label class="lable"  for="tag" >负责人：</label></label><input type="text" autocomplete="off"   id="btnPerson" value="" autofocus>
                     <label class="lable"  for="tag" >是否全费：</label> :<select id="btnFullCost">
                         <option value="-1">--请选择--</option>
                         <option value="1">是</option>
@@ -68,6 +71,7 @@
                             <th class="hidden-md">报考专业</th>
                             <th class="hidden-md">报考院校</th>
                             <th class="hidden-md">考区</th>
+                            <th class="hidden-md">创建时间</th>
                             <th data-sortable="false">操作</th>
                         </tr>
                     </thead>
@@ -137,7 +141,7 @@
                             "sSortDescending": ": 以降序排列此列"
                         }
                     },
-                    order: [[1, "desc"]],
+                    order: [[7, "desc"]],
                     serverSide: true,
                     ajax: {
                         url: '/admin/info/index',
@@ -164,6 +168,7 @@
                         {"data": "applyProfession"},
                         {"data": "applySchool"},
                         {"data": "examinationArea"},
+                        {"data": "created_at", "visible": false},
                         {"data": "action"}
                     ],
                     columnDefs: [
@@ -204,7 +209,7 @@
                         title: '导入',
                         shadeClose: true,
                         shade: 0.6,
-                        area: ['500px', '90%'],
+                        area: ['500px', '200px'],
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
                 })
@@ -216,7 +221,7 @@
                     var btPhone = $("#btPhone").val();
                     var btSchool = $("#btSchool").val();
                     var btnPerson = $("#btnPerson").val();
-                    location.href = "/admin/info/export?btName=" + btName + "&btGrade=" + btGrade + "&examinationArea=" + examinationArea + "&btnFullCost=" + btnFullCost + "&btPhone=" + btPhone + "&btSchool=" + btSchool+ "&btnPerson=" + btnPerson;
+                    location.href = "/admin/info/export?btName=" + btName + "&btGrade=" + btGrade + "&examinationArea=" + examinationArea + "&btnFullCost=" + btnFullCost + "&btPhone=" + btPhone + "&btSchool=" + btSchool + "&btnPerson=" + btnPerson;
                 });
             });
         </script>
