@@ -95,7 +95,7 @@
                             "sSortDescending": ": 以降序排列此列"
                         }
                     },
-                    order: [[3, "desc"]],
+                    order: [[4, "desc"]],
                     serverSide: true,
                     ajax: {
                         url: '/admin/operationLog/index',
