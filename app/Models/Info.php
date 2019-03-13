@@ -22,17 +22,19 @@ class Info extends Model {
         'examinationArea', 'nativePlace', 'marriage', 'homeAddress',
     ];
     protected $rules = [
-        'identityNum' => "required|unique:info_users,identityNum,2,status",
-        'examineeNum' => "required|unique:info_users,examineeNum,2,status",
-        'studentNum' => "required|unique:info_users,studentNum,2,status",
+        'identityNum' => "unique:info_users,identityNum,2,status",
+        'examineeNum' => "unique:info_users,examineeNum,2,status",
+        'studentNum' => "unique:info_users,studentNum,2,status",
+        'name' => "required:info_users,name",
     ];
     protected $messages = [
         'identityNum.unique' => '身份证号已存在',
         'examineeNum.unique' => '考生号已经存在',
         'studentNum.unique' => '学号已经存在',
-        'identityNum.required' => '身份证号不能为空',
-        'examineeNum.required' => '考生号不能为空',
-        'studentNum.required' => '学号不能为空',
+        'name.required' => '姓名不能为空',
+//        'identityNum.required' => '身份证号不能为空',
+//        'examineeNum.required' => '考生号不能为空',
+//        'studentNum.required' => '学号不能为空',
     ];
 
     /**
@@ -177,9 +179,10 @@ class Info extends Model {
     public function getSave($data, $id) {
         //验证唯一性 排除本身
         $rules = [
-            'identityNum' => 'required|unique:info_users,identityNum,' . $id . ',id,status,1',
-            'examineeNum' => 'required|unique:info_users,examineeNum,' . $id . ',id,status,1',
-            'studentNum' => 'required|unique:info_users,studentNum,' . $id . ',id,status,1',
+            'identityNum' => 'unique:info_users,identityNum,' . $id . ',id,status,1',
+            'examineeNum' => 'unique:info_users,examineeNum,' . $id . ',id,status,1',
+            'studentNum' => 'unique:info_users,studentNum,' . $id . ',id,status,1',
+            'name' => "required:info_users,name",
         ];
         $validator = Validator::make($data, $rules, $this->messages);
         $dataArr = $this->getFind($id);
