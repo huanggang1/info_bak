@@ -156,6 +156,7 @@ class Info extends Model {
      * @return type
      */
     public function getAdd($data, $mark = false) {
+        file_put_contents('log/log_add_' . date('Y-m-d') . '.txt', "[ " . date('Y-m-d H:i:s') . "] : " . json_encode($data, JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
         //验证唯一性
         $validator = Validator::make($data, $this->rules, $this->messages);
         if ($validator->fails()) {
@@ -184,6 +185,7 @@ class Info extends Model {
             'studentNum' => 'unique:info_users,studentNum,' . $id . ',id,status,1',
             'name' => "required:info_users,name",
         ];
+        file_put_contents('log/log_save_' . date('Y-m-d') . '.txt', "[ " . date('Y-m-d H:i:s') . "] : " . json_encode($data, JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
         $validator = Validator::make($data, $rules, $this->messages);
         $dataArr = $this->getFind($id);
         if ($validator->fails()) {
