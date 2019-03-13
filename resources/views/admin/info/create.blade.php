@@ -67,7 +67,7 @@
             <div class="modal-body">
                 <p class="lead">
                     <i class="fa fa-question-circle fa-lg"></i>
-                    所有信息填写不完整
+                    用户姓名不能空
                 </p>
             </div>
             <div class="modal-footer">
@@ -84,14 +84,18 @@
 <script>
     function toVaild() {
         var flag = true;
-        $(".request_input").each(function (i, ele) {
-            console.log($(ele).val(),i,ele)
-            if ($(ele).val() == "") {
-                console.log($(ele).val());
-                flag = false;
-                $("#modal-delete").modal();
-            }
-        })
+        if ($('#userName').val() == "") {
+            flag = false;
+            $("#modal-delete").modal();
+        }
+        //$(".request_input").each(function (i, ele) {
+//        console.log($(ele).val(), i, ele)
+//        if ($(ele).val() == "") {
+//            console.log($(ele).val());
+//            flag = false;
+//            $("#modal-delete").modal();
+//        }
+//        })
         return flag;
 
     }

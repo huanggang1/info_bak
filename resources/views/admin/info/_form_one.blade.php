@@ -1,5 +1,5 @@
 <div class="item">
-    <label class="lable"  for="tag" >姓   名：</label><input type="text" autocomplete="off" class="request_input" name="name"  value="{{$infoData['name']}}"  {{$readonly}} autofocus>
+    <label class="lable"  for="tag" >姓   名：</label><input type="text" autocomplete="off" id="userName" class="request_input" name="name"  value="{{$infoData['name']}}"  {{$readonly}} autofocus>
     <label class="lable"  for="tag" >性   别：</label>
     <input type="radio"  class="request_input"  name="sex"  value="0" @if ($infoData['sex']== 0) checked @endif  {{$readonly}} autofocus>男
     <input type="radio"   class="request_input" name="sex"  value="1" @if ($infoData['sex']== 1) checked @endif {{$readonly}} autofocus>女
