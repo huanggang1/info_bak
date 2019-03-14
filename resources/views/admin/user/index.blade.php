@@ -15,9 +15,10 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </div>
         <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
-        <a class="down" href="/admin/user/down">下载模板</a>
+        <!--<a class="down" href="/admin/user/down">下载模板</a>-->
+        <input type="button" class=" btn btn-primary "  id="down" value="下载模板"/>
     </form>
-    
+
 </div>  
 <div class="row page-title-row" style="margin:5px;">
     <div class="col-md-6">
@@ -202,6 +203,9 @@
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
                 })
+                $('#down').click(function () {
+                    location.href = "/admin/user/down";
+                });
                 $("#btnExport").click(function () {
                     var btName = $("#btName").val();
                     var btPhone = $("#btPhone").val();

@@ -16,7 +16,8 @@
         </div>
 
         <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
-        <a class="down" href="/admin/info/down">下载模板</a>
+        <input type="button" class=" btn btn-primary "  id="down" value="下载模板"/>
+        <!--<a class="btn btn-primary" href="/admin/info/down">下载模板</a>-->
     </form>
 </div>  
 <div class="row page-title-row" style="margin:5px;">
@@ -213,6 +214,9 @@
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
                 })
+                $('#down').click(function () {
+                    location.href = "/admin/info/down";
+                });
                 $("#btnExport").click(function () {
                     var btName = $("#btName").val();
                     var btGrade = $("#btGrade").val();

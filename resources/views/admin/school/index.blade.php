@@ -15,7 +15,8 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </div>
         <input type="submit" class=" btn btn-primary "  id="submit" value="导入"/>
-        <a class="down" href="/admin/school/down">下载模板</a>
+        <!--<a class="down" href="/admin/school/down">下载模板</a>-->
+        <input type="button" class=" btn btn-primary "  id="down" value="下载模板"/>
     </form>
 </div>
 <div class="row page-title-row" style="margin:5px;">
@@ -154,7 +155,7 @@
                         {
                             'targets': -1, "render": function (data, type, row) {
                                 var caozuo = '<a style="margin:3px;" href="/admin/school/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
-                                    caozuo += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger "><i class="fa fa-times-circle-o"></i> 删除</a>';
+                                caozuo += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger "><i class="fa fa-times-circle-o"></i> 删除</a>';
                                 return caozuo;
                             }
                         }
@@ -194,6 +195,9 @@
                         area: ['500px', '200px'],
                         content: $("#acc_sc") //"http://127.0.0.1:9501/addUser.html"
                     });
+                });
+                $('#down').click(function () {
+                    location.href = "/admin/school/down";
                 });
                 //导出
                 $('#btnExport').bind("click", function () {
